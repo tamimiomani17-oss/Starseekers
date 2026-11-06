@@ -1,0 +1,34 @@
+{
+  "status": "final",
+  "case": "B: fallback, most Perseverance traverse length inside valid HiRISE data",
+  "center_lon": 77.3798297021519,
+  "center_lat": 18.468554809066173,
+  "bbox": {
+    "xmin": 4581666.0,
+    "ymin": 1089718.0,
+    "xmax": 4591666.0,
+    "ymax": 1099718.0
+  },
+  "crs_wkt": "PROJCS[\"Equirectangular Mars 2000 Sphere IAU\",GEOGCS[\"D_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_Sphere_IAU\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",0],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+  "source": "USGS HiRISE DTM mosaic JEZ_hirise_soc_006 (1 m)",
+  "resolution_m": 1.0,
+  "grid": {
+    "cell_m": 10,
+    "width": 1000,
+    "height": 1000
+  },
+  "latest_waypoint": {
+    "sol": 2022.0,
+    "lon": 77.23322287,
+    "lat": 18.43559434,
+    "x": 4577975.924369346,
+    "y": 1092764.2781658762,
+    "inside_window": false
+  },
+  "traverse_length_inside_m": 31657.016376986816,
+  "dtm_file_bytes": 1839545409,
+  "crop_px": [
+    10000,
+    10000
+  ]
+}

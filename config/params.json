@@ -1,0 +1,22 @@
+{
+  "label": "Educational estimate - uncalibrated",
+  "mars_radius_m": 3396190,
+  "slope_block_deg": 25,
+  "risk_weights": {"slope": 0.5, "rough": 0.25, "softness": 0.25},
+  "routing": {
+    "safe_risk_multiplier": 8,
+    "speed_min": 0.15,
+    "speed_softness_coef": 0.6,
+    "speed_slope_coef": 0.4,
+    "energy_base": 1.0,
+    "energy_softness_coef": 1.5,
+    "energy_slope_coef": 2.0
+  },
+  "tracker": {
+    "g_base": 0.005,
+    "g_softness_coef": 4,
+    "g_slope_coef": 2,
+    "landmark_reset_sigma_m": 3
+  },
+  "grid": {"window_km": 10, "cell_m": 10, "slope_baseline_m": 5, "roughness_clip_percentile": 98}
+}
