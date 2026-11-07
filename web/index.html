@@ -5,19 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>StarSeekers Mars Trackers</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
   <h1>StarSeekers Mars Trackers</h1>
-  <span class="badge">Educational estimate - uncalibrated model</span>
+  <span class="badge">Educational estimate - uncalibrated model <span dir="rtl">· تقدير تعليمي غير معايَر</span></span>
   <span id="offmap" class="muted"></span>
+  <span class="date">NOV 2026</span>
 </header>
 <main>
   <div id="map"></div>
   <aside>
     <section>
-      <h2>Layers</h2>
+      <h2>Terrain difficulty layer <span class="ar" dir="rtl">طبقة صعوبة التضاريس</span></h2>
       <label><input type="checkbox" id="l-hs" checked> Hillshade</label>
       <label><input type="checkbox" id="l-df" checked> Difficulty</label>
       <label><input type="checkbox" id="l-tr" checked> Perseverance traverse</label>
@@ -26,7 +28,7 @@
       <div class="muted" id="cursor">x, y: -</div>
     </section>
     <section>
-      <h2>Route planner</h2>
+      <h2>Planned path <span class="ar" dir="rtl">المسار المخطط</span></h2>
       <div id="hint" class="muted">Click the map: 1st click = start, 2nd = end, 3rd = reset.</div>
       <div id="rmsg"></div>
       <table id="rt" hidden>
@@ -36,7 +38,7 @@
       <div class="muted small">*at 0.04 m/s base speed (assumption). Energy index is unitless. Click a row to select it.</div>
     </section>
     <section>
-      <h2>Rover tracker (simulation)</h2>
+      <h2>Live tracking position (simulation) <span class="ar" dir="rtl">تتبع الموقع الحي (محاكاة)</span></h2>
       <div class="row">
         <button id="drive">Drive</button><button id="stop">Stop</button>
         <label>Speed x<span id="spv">10</span> <input type="range" id="sp" min="1" max="50" value="10"></label>
@@ -45,13 +47,14 @@
       <div id="banner" hidden><b>ALERT</b> <span id="btext"></span>
         <button id="replan">Re-plan</button><button id="cont">Continue anyway</button></div>
       <div class="grid4">
-        <div><span id="m-dist">0.00</span><small>distance driven (km)</small></div>
-        <div><span id="m-time">-</span><small>time remaining (h, estimate)</small></div>
-        <div><span id="m-en">0.0</span><small>energy index</small></div>
-        <div><span id="m-slip">-</span><small>slip estimate % (pred. <span id="m-pred">-</span>%)</small></div>
-        <div><span id="m-sig">2.0</span><small>uncertainty sigma (m)</small></div>
+        <div><span id="m-dist">0.00</span><small>Trip distance (km) <b dir="rtl">مسافة الرحلة</b></small></div>
+        <div><span id="m-time">-</span><small>Time remaining (h, estimate) <b dir="rtl">الوقت المتبقي</b></small></div>
+        <div><span id="m-en">0.0</span><small>Energy index <b dir="rtl">مؤشر الطاقة</b></small></div>
+        <div><span id="m-slip">-</span><small>Slip alert % (pred. <span id="m-pred">-</span>%) <b dir="rtl">تنبيه الانزلاق</b></small></div>
+        <div><span id="m-sig">2.0</span><small>Position uncertainty σ (m) <b dir="rtl">عدم يقين الموقع</b></small></div>
         <div><span id="m-sl">-</span><small>slope deg / softness</small></div>
       </div>
+      <h3>Position accuracy estimation along the path <span class="ar" dir="rtl">تقدير دقة الموقع على طول المسار</span></h3>
       <canvas id="chart" width="420" height="150"></canvas>
       <ul id="log"></ul>
     </section>
