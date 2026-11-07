@@ -38,3 +38,13 @@ OUT (do not build): 3D, live telemetry, backend/server, database, multi-site, us
 - Prefer small edits over rewrites. No new dependencies without saying why.
 - If a data source is unreachable or not covering the window, say so plainly and use the documented fallback; never invent data.
 - Keep web code vanilla (no build step), < ~800 lines total, readable.
+
+## Status after Prompt 1/1B
+- Window: case B (fallback), SW lon 77.2955/lat 18.3842, NE lon 77.4642/lat 18.5529; Perseverance latest waypoint (sol 2022) is ~3.7 km WEST of the window (off-map indicator only).
+- Files in `web/data/`: meta.json, cost.bin, slope.bin, softness.bin (uint8, 1000x1000, **first row = SOUTH**), hillshade.png (2000x2000), difficulty.png (1000x1000 RGBA), both **top row = north**; traverse.json, landmarks.json, classes.json. Total ~5.8 MB.
+- Validation (docs/VALIDATION.md): along the real path mean risk 0.29, 0% blocked, 3.2% cells risk>0.6 -> model not too pessimistic.
+- West strip: slope/roughness vary smoothly (no step >1.1x, no nodata, no stripes) -> likely REAL steep terrain, not an artifact. No buffer applied.
+- Landmarks A-E re-picked (rims/bumps by DEM relief, >=800 m from edges, >=1.8 km apart).
+- Classes: 5 (solid rock/easy/moderate/difficult/prohibited), risk thresholds 0.25/0.35/0.50/0.65; blocked = prohibited. Route UNSAFE cap uses mean risk 0.6.
+- Known issues: softness is a THEMIS proxy (coarse); "roughness" is a rock-density stand-in; landmarks are rims, not named craters.
+- Windows/Arabic path: `python/common.py::rio_env()` copies the certifi CA bundle to the temp dir for GDAL/curl. Run python via `.venv/Scripts/python.exe` from `python/` (set PYTHONIOENCODING=utf-8).

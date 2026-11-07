@@ -1,0 +1,56 @@
+{
+ "thresholds": [
+  0.25,
+  0.35,
+  0.5,
+  0.65
+ ],
+ "note": "blocked (slope >= 25 deg) is always Prohibited; route UNSAFE cap = mean risk 0.6",
+ "classes": [
+  {
+   "id": 0,
+   "name_ar": "صخر صلب",
+   "name_en": "Solid rock",
+   "color": "#F4F1EA",
+   "risk_min": 0,
+   "risk_max": 0.25,
+   "share_pct": 25.4
+  },
+  {
+   "id": 1,
+   "name_ar": "سهل",
+   "name_en": "Easy",
+   "color": "#F2D544",
+   "risk_min": 0.25,
+   "risk_max": 0.35,
+   "share_pct": 31.5
+  },
+  {
+   "id": 2,
+   "name_ar": "متوسط",
+   "name_en": "Moderate",
+   "color": "#F5A55A",
+   "risk_min": 0.35,
+   "risk_max": 0.5,
+   "share_pct": 24.0
+  },
+  {
+   "id": 3,
+   "name_ar": "صعب",
+   "name_en": "Difficult",
+   "color": "#E0662A",
+   "risk_min": 0.5,
+   "risk_max": 0.65,
+   "share_pct": 11.6
+  },
+  {
+   "id": 4,
+   "name_ar": "ممنوع",
+   "name_en": "Prohibited",
+   "color": "#7A0E12",
+   "risk_min": 0.65,
+   "risk_max": 1,
+   "share_pct": 7.5
+  }
+ ]
+}
