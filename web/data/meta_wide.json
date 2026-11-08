@@ -1,0 +1,92 @@
+{
+ "label": "Educational estimate - uncalibrated",
+ "zone": "wide",
+ "width": 1318,
+ "height": 1250,
+ "cell_m": 40,
+ "cell_m_x": 37.9399,
+ "cell_m_y": 40,
+ "cell_note": "x/y are file-CRS metres; ground metres: x*cos(lat). cell_m_x/cell_m_y are GROUND metres per cell.",
+ "size_m": [
+  52720,
+  50000
+ ],
+ "origin_local": [
+  -21360.0,
+  -20000.0
+ ],
+ "origin_note": "same local frame as the detail zone: SW corner of the 10 km window = (0,0); x east, y north",
+ "bin_order": "row-major, first row = SOUTH row; index = row*width + col",
+ "cost_bin": "uint8: 0..254 = risk*254, 255 = blocked or no DEM",
+ "slope_bin": "uint8: slope clipped 0..45 deg -> 0..255 (20 m DEM; smoother than the 10 m zone)",
+ "softness_bin": "uint8: 0..1 -> 0..255; value 0 where mask bit 2 is set (no thermal inertia) - NOT a real zero",
+ "mask_bin": "uint8 bit flags: 1 = no DEM data, 2 = no thermal-inertia data (risk uses slope+roughness only there)",
+ "images": "hillshade.png (2x cells, top row = north), difficulty.png (1 px per cell, RGBA, grey = no DEM)",
+ "corners_lonlat": {
+  "SW": [
+   76.935121,
+   18.04679
+  ],
+  "NE": [
+   77.824539,
+   18.89032
+  ]
+ },
+ "source": "USGS Mars 2020 Science CTX DEM 20 m (M20_JezeroCrater_CTXDEM_20m.tif)",
+ "dem_valid_fraction": 0.9298,
+ "mask_fractions": {
+  "no_dem": 0.0706,
+  "no_ti": 0.2064
+ },
+ "latest_waypoint": {
+  "sol": 2022.0,
+  "x": -3695.4,
+  "y": 3046.8
+ },
+ "traverse_length_m": 46095,
+ "params": {
+  "label": "Educational estimate - uncalibrated",
+  "mars_radius_m": 3396190,
+  "slope_block_deg": 25,
+  "risk_weights": {
+   "slope": 0.5,
+   "rough": 0.25,
+   "softness": 0.25
+  },
+  "routing": {
+   "safe_risk_multiplier": 8,
+   "speed_min": 0.15,
+   "speed_softness_coef": 0.6,
+   "speed_slope_coef": 0.4,
+   "energy_base": 1.0,
+   "energy_softness_coef": 1.5,
+   "energy_slope_coef": 2.0,
+   "base_speed_mps": 0.04,
+   "unsafe_mean_risk": 0.6,
+   "risk_high": 0.8,
+   "unsafe_high_risk_share": 0.15
+  },
+  "tracker": {
+   "g_base": 0.005,
+   "g_softness_coef": 4,
+   "g_slope_coef": 2,
+   "landmark_reset_sigma_m": 3,
+   "sigma_start_m": 2,
+   "landmark_radius_m": 30,
+   "slip_base": 0.05,
+   "slip_softness_coef": 0.3,
+   "slip_slope_coef": 0.4,
+   "slip_patch_cells": 10,
+   "slip_patch_factor": 2,
+   "slip_alert_ratio": 1.5,
+   "slip_ema_m": 30
+  },
+  "grid": {
+   "window_km": 10,
+   "cell_m": 10,
+   "slope_baseline_m": 5,
+   "roughness_clip_percentile": 98
+  }
+ },
+ "generated": "2026-11-08T08:35:19+00:00"
+}

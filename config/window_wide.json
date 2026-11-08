@@ -1,0 +1,36 @@
+{
+  "status": "final",
+  "ground_km": 50.0,
+  "cell_m_file": 40,
+  "grid": {
+    "width": 1318,
+    "height": 1250
+  },
+  "bbox": {
+    "xmin": 4560306.0,
+    "ymin": 1069718.0,
+    "xmax": 4613026.0,
+    "ymax": 1119718.0
+  },
+  "origin_local": [
+    -21360.0,
+    -20000.0
+  ],
+  "center_lon": 77.3798297021519,
+  "center_lat": 18.468554809066173,
+  "crs_wkt": "PROJCS[\"Equirectangular Mars 2000 Sphere IAU\",GEOGCS[\"D_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_Sphere_IAU\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",0],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+  "corners_lonlat": {
+    "SW": [
+      76.935121,
+      18.04679
+    ],
+    "NE": [
+      77.824539,
+      18.89032
+    ]
+  },
+  "source": "USGS Mars 2020 Science CTX DEM 20 m (M20_JezeroCrater_CTXDEM_20m.tif)",
+  "source_url": "https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif",
+  "dem_valid_fraction": 0.9298,
+  "dem_cell_m": 20
+}
