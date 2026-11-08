@@ -19,6 +19,23 @@
   <div id="map"></div>
   <aside>
     <section>
+      <details id="hazards">
+        <summary><b>Hazards &amp; needs</b> <span class="ar" dir="rtl">المخاطر والاحتياجات</span></summary>
+        <table class="hz">
+          <thead><tr><th>Hazard</th><th>On this map</th><th>Need</th></tr></thead>
+          <tbody>
+            <tr><td>1. Soft-soil slip <span dir="rtl">انزلاق التربة الناعمة</span></td><td><span class="tag in">Modelled</span> softness (thermal-inertia proxy) in risk, speed, energy, slip alert</td><td>Wheel-slip sensing; avoid soft patches</td></tr>
+            <tr><td>2. Slope &amp; rim collapse <span dir="rtl">الميل وانهيار الحواف</span></td><td><span class="tag in">Modelled</span> slope in risk; slope &ge; 25&deg; = Prohibited (blocked)</td><td>Slope limits; keep margin from rims</td></tr>
+            <tr><td>3. Rocks <span dir="rtl">الصخور</span></td><td><span class="tag px">Rough proxy</span> terrain roughness stands in for rock density (no rock-abundance data)</td><td>Rock-abundance map; hazard cameras</td></tr>
+            <tr><td>4. Position accuracy <span dir="rtl">دقة الموقع</span></td><td><span class="tag in">Modelled</span> tracker: uncertainty circle grows, reset at landmarks</td><td>Landmark matching; visual odometry</td></tr>
+            <tr><td>5. Comms delay <span dir="rtl">تأخر الاتصال</span></td><td><span class="tag ex">Explanation</span> one-way delay ~3&ndash;22 min (derived from NASA distances), so no live joystick control</td><td>Onboard autonomy: plan and re-plan locally</td></tr>
+            <tr><td>6. Dust &amp; power <span dir="rtl">الغبار والطاقة</span></td><td><span class="tag ex">Explanation</span> not modelled. Perseverance uses an MMRTG (not solar), so dust matters mostly for visibility/thermal</td><td>Power/thermal budget; dust monitoring</td></tr>
+          </tbody>
+        </table>
+        <div class="muted small">Team list, verified where noted (values: docs/HAZARDS_SOURCES.md). The "Need" column is a summary of the team list and was not checked against sources. Educational estimate - uncalibrated.</div>
+      </details>
+    </section>
+    <section>
       <h2>Terrain difficulty layer <span class="ar" dir="rtl">طبقة صعوبة التضاريس</span></h2>
       <label><input type="checkbox" id="l-hs" checked> Hillshade (detail 10 m + wide 40 m)</label>
       <label><input type="checkbox" id="l-df" checked> Difficulty</label>

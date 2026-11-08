@@ -38,3 +38,7 @@ canvas { width:100%; background:var(--bg); border:1px solid var(--line); border-
 .flash { stroke-width:8px; }
 @media (max-width: 800px) { main { flex-direction:column; overflow:auto; } #map { min-height:55vh; flex:none; margin:8px; } aside { width:auto; overflow:visible; } h1 { font-size:16px; } .date { margin-left:0; } }
 .zlabel { color:#fff; background:rgba(15,27,51,.85); border:1px solid #fff; border-radius:4px; padding:1px 6px; font-size:11px; white-space:nowrap; width:max-content; }
+summary { cursor:pointer; color:var(--accent); font-size:14px; }
+.hz td, .hz th { text-align:left; vertical-align:top; font-size:11px; } .hz td:first-child { white-space:nowrap; }
+.tag { border-radius:8px; padding:0 5px; font-size:10px; display:inline-block; margin-bottom:2px; color:#06210f; }
+.tag.in { background:var(--ok); } .tag.px { background:#ffd23f; } .tag.ex { background:#9bb0e8; }
