@@ -20,10 +20,16 @@
   // ---- map ----
   const map = L.map('map', { crs: L.CRS.Simple, minZoom: -7, maxZoom: 2, zoomSnap: 0.25, attributionControl: false });
   const DB = [[0, 0], [SIZE, SIZE]], WB = [[WIDE.oy, WIDE.ox], [WIDE.oy + WIDE.H * WIDE.cell, WIDE.ox + WIDE.W * WIDE.cell]];
-  const hsW = L.imageOverlay('data/wide/hillshade.png', WB).addTo(map);
-  const dfW = L.imageOverlay('data/wide/difficulty.png', WB, { opacity: 0.7 }).addTo(map);
-  const hs = L.imageOverlay('data/hillshade.png', DB).addTo(map);
-  const df = L.imageOverlay('data/difficulty.png', DB, { opacity: 0.7 }).addTo(map);
+  // zIndex order: wide hillshade < CTX imagery (optional, off by default) < wide difficulty < detail hillshade < detail difficulty
+  const hsW = L.imageOverlay('data/wide/hillshade.png', WB, { zIndex: 1 }).addTo(map);
+  const ctx = L.imageOverlay('data/wide/ctx.jpg', WB, { zIndex: 2 });
+  const dfW = L.imageOverlay('data/wide/difficulty.png', WB, { opacity: 0.7, zIndex: 3 }).addTo(map);
+  const hs = L.imageOverlay('data/hillshade.png', DB, { zIndex: 4 }).addTo(map);
+  const df = L.imageOverlay('data/difficulty.png', DB, { opacity: 0.7, zIndex: 5 }).addTo(map);
+  // imagery credit, shown only while the CTX layer is on
+  const cr = L.control({ position: 'topright' });
+  cr.onAdd = () => { const d = L.DomUtil.create('div', 'legend'); d.innerHTML = 'Imagery: NASA/JPL/MSSS/The Murray Lab &middot; Dickson et al. 2024, doi:10.1029/2024EA003555<br>context only: absolute offset &lt; 200 m vs DEM'; return d; };
+  ctx.on('add', () => cr.addTo(map)); ctx.on('remove', () => cr.remove());
   map.fitBounds(WB);
   // frame around the detail zone + zone labels
   const frame = L.layerGroup().addTo(map);
@@ -42,7 +48,7 @@
   });
   lmMarkers.forEach((m) => m.bindTooltip(m.lm.name, { permanent: true, direction: 'top', offset: [0, -6] }));
   const bind = (id, ...layers) => $(id).addEventListener('change', (e) => layers.forEach((l) => (e.target.checked ? l.addTo(map) : map.removeLayer(l))));
-  bind('l-hs', hs, hsW); bind('l-df', df, dfW); bind('l-tr', trLayer); bind('l-lm', lmLayer); bind('l-fr', frame);
+  bind('l-hs', hs, hsW); bind('l-df', df, dfW); bind('l-tr', trLayer); bind('l-lm', lmLayer); bind('l-fr', frame); bind('l-ctx', ctx);
   $('op').addEventListener('input', (e) => { df.setOpacity(e.target.value / 100); dfW.setOpacity(e.target.value / 100); });
 
   // legend (colours/names from classes.json) + "no data" swatch for the wide zone
