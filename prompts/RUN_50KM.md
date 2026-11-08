@@ -3,7 +3,7 @@
 **قاعدة مهمة:** `/clear` يُرسل **لوحده** ثم Enter. لا تلصقه مع النص (النص بعده يضيع). الجلسة الجديدة من `claude` ما تحتاج `/clear`.
 
 ```powershell
-cd "C:\Users\intel11\Desktop\Life\هاكاثون ناسا\26\starseekers-mars-trackers"
+cd "<PROJECT_ROOT>"
 claude --model sonnet
 ```
 

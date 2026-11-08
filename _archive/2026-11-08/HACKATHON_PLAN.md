@@ -61,9 +61,9 @@ Thank you.
 ## 5. الأوامر (PowerShell داخل مجلد المشروع)
 
 ```powershell
-cd "C:\Users\intel11\Desktop\Life\هاكاثون ناسا\26\starseekers-mars-trackers"
+cd "<PROJECT_ROOT>"
 git config --global user.name "Omar Altamimi"
-git config --global user.email "tamimiomani17@gmail.com"
+git config --global user.email "<your-email>"
 git status
 claude --model sonnet
 ```

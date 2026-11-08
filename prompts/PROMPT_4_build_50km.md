@@ -12,7 +12,7 @@
 0. **نقطة أمان:** commit لأي تغيير غير محفوظ ثم `git tag pre-organize-2026-11-08`.
 1. **اتبع مهارة cleanup-archive: انقل ولا تحذف.** `git mv` إلى `_archive/2026-11-08/` (بنفس بنية المجلدات): START_HERE.md، NEXT_STEPS.md، HACKATHON_PLAN.md، CLAUDE_CODE_COMMANDS.md، CLAUDE_CODE_2_PROMPTS.md، وأي مرشح آخر **بعد grep يثبت أنه غير مستخدم** (لا تنقل شي مرجوع من README.md/CLAUDE.md/pages.yml). لا تلمس: `config/`، `.github/`، ولا أي ملف مذكور كسجل في `docs/`. اكتب `_archive/2026-11-08/LOG.md`: جدول (ملف | سبب النقل | طريقة الاسترجاع). الجذر يبقى: README.md، CLAUDE.md، requirements.txt، .gitignore + المجلدات. بعد النقل: شغّل اختبارات الـ A* وسيرفر محلي؛ لو انكسر شي ارجع للـ tag.
 2. `design/`: أعد تسمية صورة WhatsApp إلى `design/concept_canva_2026-11-06.jpeg` بـ `git mv`.
-3. **نظافة ريبو public:** ابحث في الملفات المتتبَّعة عن `C:\Users`، `intel11`، إيميلات، tokens. استبدل المسارات المحلية بـ `<PROJECT_ROOT>`. اكتب لي ما وجدته (التاريخ القديم ما نغيّره).
+3. **نظافة ريبو public:** ابحث في الملفات المتتبَّعة عن `<local-path>`، `<user>`، إيميلات، tokens. استبدل المسارات المحلية بـ `<PROJECT_ROOT>`. اكتب لي ما وجدته (التاريخ القديم ما نغيّره).
 4. حدّث `CLAUDE.md` (نطاقين، الدقة، الموقع الحي على Vercel، pages.yml اختياري)، و`README.md` (احذف حالات قديمة مثل "needs push"، أضف 50 كم)، و`docs/SOURCES.md` من البحث.
 5. أنشئ `docs/ARCHITECTURE.md` (<= 40 سطر: خريطة الملفات، من يقرأ شنو، ترتيب الـ scripts).
 Commit: `Checkpoint O`.

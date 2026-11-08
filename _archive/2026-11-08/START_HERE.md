@@ -3,7 +3,7 @@
 ملف واحد فيه كل شي: الموديل، الخطوات، الأوامر، والبرومبتين. اتبعه من فوق لتحت.
 
 **المستودع:** https://github.com/tamimiomani17-oss/Starseekers
-**المجلد على جهازك:** `C:\Users\intel11\Desktop\Life\هاكاثون ناسا\26\starseekers-mars-trackers`
+**المجلد على جهازك:** `<PROJECT_ROOT>`
 
 ## 1) الصورة الكاملة
 
@@ -52,7 +52,7 @@ claude --version
 ### الخطوة 1 — افتح المشروع في Claude Code
 
 ```
-cd "C:\Users\intel11\Desktop\Life\هاكاثون ناسا\26\starseekers-mars-trackers"
+cd "<PROJECT_ROOT>"
 claude
 ```
 

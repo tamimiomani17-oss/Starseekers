@@ -21,3 +21,12 @@ VERIFIED = seen in a search/page during this check. UNVERIFIED = needs checking 
 1. Does the HiRISE DTM actually cover a 10 km window around Perseverance's latest waypoint? The rover has driven far from the original 2021 crater-floor coverage. If not covered, use the fallback in Prompt 1.
 2. Real file sizes before downloading.
 3. CRS of every GeoTIFF (read it, don't assume).
+
+## Added for the 50 km zone (research 8 Nov 2026; details + measurements in `RESEARCH_50KM.md`)
+| Need | Source | URL | Status |
+|---|---|---|---|
+| Wide DEM 20 m | USGS Mars 2020 Science CTX DEM (90 MB) | https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif | MEASURED: covers 93.1% of the 50 km box; west strip lon<77.0 missing. Accuracy numbers UNVERIFIED |
+| Thermal inertia (wide) | Zenodo 4931348, 100 m | https://zenodo.org/record/4931348 | MEASURED: 95.1% extent, 73.6% non-zero; zeros = nodata |
+| CTX imagery (optional) | Murray Lab CTX mosaic via Esri tiles (L11 ~10 m) | https://astro.arcgis.com/arcgis/rest/services/OnMars/CTX1/MapServer | tile fetch tested; bulk policy UNVERIFIED. Credit: NASA/JPL/MSSS/The Murray Lab; Dickson et al. 2024, doi:10.1029/2024EA003555; abs. offset < 200 m |
+| Hazards numbers | `HAZARDS_SOURCES.md` | - | verified items only |
+| Not used (too big/coarse) | MSR HiRISE DTM (676 MB member), Murray zip (1.81 GB), HRSC+MOLA 200 m | see research | not downloaded |

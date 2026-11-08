@@ -60,7 +60,7 @@
 **الأوامر:**
 
 ```
-cd "C:\Users\intel11\Desktop\Life\هاكاثون ناسا\26\starseekers-mars-trackers"
+cd "<PROJECT_ROOT>"
 claude
 /model sonnet
 ```

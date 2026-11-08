@@ -3,9 +3,9 @@
 ## تجهيز (مرة وحدة)
 
 ```powershell
-cd "C:\Users\intel11\Desktop\Life\هاكاثون ناسا\26\starseekers-mars-trackers"
+cd "<PROJECT_ROOT>"
 git config --global user.name "Omar Altamimi"
-git config --global user.email "tamimiomani17@gmail.com"
+git config --global user.email "<your-email>"
 claude --model sonnet
 ```
 
@@ -36,7 +36,7 @@ commit "Checkpoint D" و"Checkpoint E" بدون push. أعطني أوامر ال
 ## تشغيل الموقع (نافذة PowerShell ثانية)
 
 ```powershell
-cd "C:\Users\intel11\Desktop\Life\هاكاثون ناسا\26\starseekers-mars-trackers\web"
+cd "<PROJECT_ROOT>\web"
 python -m http.server 8000
 ```
 
