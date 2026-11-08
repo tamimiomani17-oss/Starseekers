@@ -71,7 +71,7 @@ def main():
             else:
                 if len(cur) >= 2:
                     runs.append({"sol": float(sol) if sol not in (None, "") else None, "pts": cur})
-                    tlen += float(np.sum(np.hypot(*np.diff(np.array(cur), axis=0).T)))
+                    d = np.diff(np.array(cur), axis=0); tlen += float(np.sum(np.hypot(d[:, 0] * np.cos(np.radians(win["center_lat"])), d[:, 1])))
                 cur = []
     wps = []
     for f in json.loads((RAW / "M20_waypoints.json").read_text(encoding="utf-8"))["features"]:
@@ -107,6 +107,8 @@ def main():
 
     meta = {
         "label": LABEL, "width": W, "height": H, "cell_m": cell, "size_m": size,
+        "cell_m_x": round(cell * float(np.cos(np.radians(win["center_lat"]))), 4), "cell_m_y": cell,
+        "cell_note": "x/y local coords are file-CRS metres; GROUND metres per cell are cell_m_x (E-W, = cell*cos(lat)) and cell_m_y (N-S)",
         "origin_local": [0, 0], "origin_note": "SW corner of window = (0,0); x east, y north, metres",
         "bin_order": "row-major, first row = SOUTH row, rows go northward; index = row*width + col",
         "cost_bin": "uint8: 0..254 = risk*254, 255 = blocked",

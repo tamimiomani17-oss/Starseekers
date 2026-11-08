@@ -12,10 +12,10 @@ from scipy import ndimage as ndi
 from common import CONFIG, PROC, RAW, TI_LOCAL, TI_URL, params
 
 
-def horn_slope_deg(z, cell):
+def horn_slope_deg(z, dx, dy):
     k = np.pad(z, 1, mode="edge")
-    dzdx = ((k[:-2, 2:] + 2 * k[1:-1, 2:] + k[2:, 2:]) - (k[:-2, :-2] + 2 * k[1:-1, :-2] + k[2:, :-2])) / (8 * cell)
-    dzdy = ((k[2:, :-2] + 2 * k[2:, 1:-1] + k[2:, 2:]) - (k[:-2, :-2] + 2 * k[:-2, 1:-1] + k[:-2, 2:])) / (8 * cell)
+    dzdx = ((k[:-2, 2:] + 2 * k[1:-1, 2:] + k[2:, 2:]) - (k[:-2, :-2] + 2 * k[1:-1, :-2] + k[2:, :-2])) / (8 * dx)
+    dzdy = ((k[2:, :-2] + 2 * k[2:, 1:-1] + k[2:, 2:]) - (k[:-2, :-2] + 2 * k[:-2, 1:-1] + k[:-2, 2:])) / (8 * dy)
     return np.degrees(np.arctan(np.hypot(dzdx, dzdy))), dzdx, dzdy
 
 
@@ -40,7 +40,9 @@ def main():
 
     # slope at 5 m baseline (5x5 mean from 1 m), aggregate to 10 m with max
     z5 = block(dem, 5, np.mean)
-    s5, dzdx, dzdy = horn_slope_deg(z5, 5.0)
+    # file CRS is equirectangular with lat_ts=0: x file-metres are 1/cos(lat) longer than ground metres (fix, 8 Nov 2026)
+    cosl = float(np.cos(np.radians(w["center_lat"])))
+    s5, dzdx, dzdy = horn_slope_deg(z5, 5.0 * cosl, 5.0)
     slope = block(s5, 2, np.max)
     # roughness: std in 10 m block, normalized by 98th percentile
     rough = block(dem, 10, np.std)

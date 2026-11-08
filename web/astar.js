@@ -1,5 +1,6 @@
 /* Routing core (shared by browser and Node test). PARAMS mirrors config/params.json (test_astar.js checks they match).
-   Grid G = {W,H,cell,cost,slope,soft}: uint8 arrays, row-major, first row = SOUTH. cost 255 = blocked.
+   Grid G = {W,H,cell,cx,cy,cost,slope,soft}: uint8 arrays, row-major, first row = SOUTH. cost 255 = blocked.
+   cx / cy = GROUND metres per cell E-W / N-S (cx = cell*cos(lat) because the file CRS is lat_ts=0); default cx=cy=cell.
    Educational estimate - uncalibrated model. */
 (function (root) {
   'use strict';
@@ -26,15 +27,18 @@
   let buf = null;
   function astar(G, s, e, mode, opts) {
     opts = opts || {};
-    const W = G.W, N = W * G.H, cell = G.cell || 10;
+    const W = G.W, N = W * G.H, cx = G.cx || G.cell || 10, cy = G.cy || G.cell || 10, cd = Math.hypot(cx, cy);
     if (s === e) return [s];
     if ((!opts.ignoreStart && G.cost[s] === 255) || G.cost[e] === 255) return null;
-    if (!buf || buf.g.length !== N) buf = { g: new Float64Array(N), from: new Int32Array(N), done: new Uint8Array(N) };
+    if (!buf || buf.g.length !== N) buf = { g: new Float64Array(N), from: new Int32Array(N), done: new Uint8Array(N), mm: new Float32Array(0) };
     const { g, from, done } = buf;
     g.fill(Infinity); from.fill(-1); done.fill(0);
+    if (buf.mm.length !== N) buf.mm = new Float32Array(N);
+    const mm = buf.mm; mm.fill(-1);  // per-call cache of the cell multiplier (it is evaluated ~8x per cell otherwise)
+    const mc = (i) => (mm[i] < 0 ? (mm[i] = mult(G, i, mode)) : mm[i]);
     const ex = e % W, ey = (e / W) | 0;
     const h = (i) => { const dx = Math.abs(i % W - ex), dy = Math.abs(((i / W) | 0) - ey);
-      return cell * (Math.max(dx, dy) + (S2 - 1) * Math.min(dx, dy)); };  // octile; admissible since mult >= 1
+      return Math.hypot(dx * cx, dy * cy); };  // straight line in ground metres; admissible since mult >= 1
     const hi = [], hf = [];  // binary min-heap (parallel arrays)
     const push = (i, f) => { let k = hi.length; hi.push(i); hf.push(f);
       while (k > 0) { const p = (k - 1) >> 1; if (hf[p] <= f) break; hi[k] = hi[p]; hf[k] = hf[p]; k = p; }
@@ -50,25 +54,25 @@
       if (done[i]) continue;
       done[i] = 1;
       if (i === e) { const path = []; for (let k = e; k !== -1; k = from[k]) path.push(k); return path.reverse(); }
-      const cx = i % W, cy = (i / W) | 0, mi = mult(G, i, mode);
+      const cx = i % W, cy = (i / W) | 0, mi = mc(i);
       for (let k = 0; k < 8; k++) {
         const nx = cx + DX[k], ny = cy + DY[k];
         if (nx < 0 || ny < 0 || nx >= W || ny >= G.H) continue;
         const j = ny * W + nx;
         if (done[j] || G.cost[j] === 255) continue;
-        const ng = g[i] + cell * (k >= 4 ? S2 : 1) * 0.5 * (mi + mult(G, j, mode));
+        const ng = g[i] + (k >= 4 ? cd : k < 2 ? cx : cy) * 0.5 * (mi + mc(j));
         if (ng < g[j]) { g[j] = ng; from[j] = i; push(j, ng + h(j)); }
       }
     }
     return null;
   }
   function stats(G, path) {
-    const W = G.W, cell = G.cell || 10;
+    const W = G.W, cx = G.cx || G.cell || 10, cy = G.cy || G.cell || 10;
     let len = 0, time = 0, en = 0, safeCost = 0, maxSlope = 0, rs = 0, soft6 = 0, high = 0;
     for (let k = 0; k < path.length; k++) {
       const i = path[k], r = risk(G, i), so = soft(G, i), sl = slopeDeg(G, i);
       rs += r; if (so > 0.6) soft6++; if (r > R.risk_high) high++; if (sl > maxSlope) maxSlope = sl;
-      if (k) { const p = path[k - 1], diag = (p % W !== i % W) && (((p / W) | 0) !== ((i / W) | 0)), d = diag ? cell * S2 : cell;
+      if (k) { const p = path[k - 1], dxs = p % W !== i % W, dys = ((p / W) | 0) !== ((i / W) | 0), d = dxs && dys ? Math.hypot(cx, cy) : dxs ? cx : cy;
         const sl2 = (sl + slopeDeg(G, p)) / 2, so2 = (so + soft(G, p)) / 2, r2 = (r + risk(G, p)) / 2;
         len += d; time += d / (R.base_speed_mps * speed(sl2, so2)); en += d * energy(sl2, so2); safeCost += d * (1 + R.safe_risk_multiplier * r2); }
     }

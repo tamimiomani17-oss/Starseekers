@@ -14,7 +14,7 @@
    "color": "#F4F1EA",
    "risk_min": 0,
    "risk_max": 0.25,
-   "share_pct": 25.4
+   "share_pct": 24.8
   },
   {
    "id": 1,
@@ -23,7 +23,7 @@
    "color": "#F2D544",
    "risk_min": 0.25,
    "risk_max": 0.35,
-   "share_pct": 31.5
+   "share_pct": 31.4
   },
   {
    "id": 2,
@@ -41,7 +41,7 @@
    "color": "#E0662A",
    "risk_min": 0.5,
    "risk_max": 0.65,
-   "share_pct": 11.6
+   "share_pct": 11.9
   },
   {
    "id": 4,
@@ -50,7 +50,7 @@
    "color": "#7A0E12",
    "risk_min": 0.65,
    "risk_max": 1,
-   "share_pct": 7.5
+   "share_pct": 8.0
   }
  ]
 }
