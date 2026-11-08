@@ -20,10 +20,11 @@
   <aside>
     <section>
       <h2>Terrain difficulty layer <span class="ar" dir="rtl">طبقة صعوبة التضاريس</span></h2>
-      <label><input type="checkbox" id="l-hs" checked> Hillshade</label>
+      <label><input type="checkbox" id="l-hs" checked> Hillshade (detail 10 m + wide 40 m)</label>
       <label><input type="checkbox" id="l-df" checked> Difficulty</label>
       <label><input type="checkbox" id="l-tr" checked> Perseverance traverse</label>
       <label><input type="checkbox" id="l-lm" checked> Landmarks</label>
+      <label><input type="checkbox" id="l-fr" checked> Detail-zone frame</label>
       <label>Difficulty opacity <input type="range" id="op" min="0" max="100" value="70"></label>
       <div class="muted" id="cursor">x, y: -</div>
     </section>
@@ -32,7 +33,7 @@
       <div id="hint" class="muted">Click the map: 1st click = start, 2nd = end, 3rd = reset.</div>
       <div id="rmsg"></div>
       <table id="rt" hidden>
-        <thead><tr><th>Route</th><th>Length m</th><th>Time min*</th><th>Energy idx</th><th>Max slope</th><th>Mean risk</th><th>Soft&gt;0.6</th><th>Status</th></tr></thead>
+        <thead><tr><th>Route</th><th>Grid</th><th>Length m</th><th>Time min*</th><th>Energy idx</th><th>Max slope</th><th>Mean risk</th><th>Soft&gt;0.6</th><th>Status</th></tr></thead>
         <tbody></tbody>
       </table>
       <div class="muted small">*at 0.04 m/s base speed (assumption). Energy index is unitless. Click a row to select it.</div>

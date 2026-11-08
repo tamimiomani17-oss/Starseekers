@@ -11,7 +11,7 @@
 
   function log(t) { const li = document.createElement('li'); li.textContent = `[${T ? (T.driven / 1000).toFixed(2) : '0.00'} km] ${t}`; $('log').prepend(li); }
   function cum(path) { const c = [0], A = window.App;
-    for (let k = 1; k < path.length; k++) { const a = A.xy(path[k - 1]), b = A.xy(path[k]); c.push(c[k - 1] + Math.hypot(b[0] - a[0], b[1] - a[1])); }
+    for (let k = 1; k < path.length; k++) { c.push(c[k - 1] + A.gd(A.xy(path[k - 1]), A.xy(path[k]))); }  // ground metres (x is stretched 1/cos(lat) in the file CRS)
     return c; }
   function pos() { const A = window.App, a = A.xy(T.path[T.i]), b = A.xy(T.path[Math.min(T.i + 1, T.path.length - 1)]);
     return [a[0] + (b[0] - a[0]) * T.frac, a[1] + (b[1] - a[1]) * T.frac]; }
@@ -49,7 +49,7 @@
       const pred = slipPred(so, sl), meas = pred * (T.patch.has(c) ? P.slip_patch_factor : 1) * (1 + (Math.random() - 0.5) * 0.1), al = 1 - Math.exp(-ds / P.slip_ema_m);
       T.estP += al * (pred - T.estP); T.estM += al * (meas - T.estM); T.sl = sl; T.so = so;
       const q = pos();
-      A.lmMarkers.forEach((m, k) => { const d = Math.hypot(m.lm.x - q[0], m.lm.y - q[1]);
+      A.lmMarkers.forEach((m, k) => { const d = A.gd([m.lm.x, m.lm.y], q);
         if (d < P.landmark_radius_m && !T.inLm[k]) { T.inLm[k] = true; flash(m);
           if (T.sigma > P.landmark_reset_sigma_m) log(`${m.lm.name} pass: sigma ${T.sigma.toFixed(1)} -> ${P.landmark_reset_sigma_m} m`);
           T.sigma = Math.min(T.sigma, P.landmark_reset_sigma_m); T.marks.push({ d: T.driven, label: m.lm.name.slice(-1), color: '#a64bf4' }); }

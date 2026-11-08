@@ -34,4 +34,18 @@ assert.strictEqual(SS.recommend(routes).mode, 'safe'); ok('band route flagged UN
 G = band(false);
 const all = ['safe', 'fast', 'power'].map(m => run(G, m));
 assert(all.every(r => r.stats.unsafe)); assert.strictEqual(SS.recommend(all), null); ok('all routes UNSAFE -> no recommendation');
+// 5. real WIDE grid (1318x1250, 40 m): far-apart valid cells in the SW and NE corners; all 3 modes find a route that avoids blocked/no-data cells,
+//    and the slowest search stays under the 3 s target (limit 6 s here so a slow CI machine does not flake)
+const wd = path.join(__dirname, 'data', 'wide'), mw = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'meta_wide.json'), 'utf8'));
+const rb = (n) => new Uint8Array(fs.readFileSync(path.join(wd, n + '.bin')));
+const GW = { W: mw.width, H: mw.height, cell: mw.cell_m, cx: mw.cell_m_x, cy: mw.cell_m_y, cost: rb('cost'), slope: rb('slope'), soft: rb('softness') };
+assert.strictEqual(GW.cost.length, GW.W * GW.H);
+const nearest = (x0, y0, dx, dy) => { for (let k = 0; k < 400; k++) for (let a = 0; a <= k; a++) { const i = (y0 + dy * (k - a)) * GW.W + x0 + dx * a; if (GW.cost[i] !== 255) return i; } };
+const wS = nearest(10, 10, 1, 1), wE = nearest(GW.W - 11, GW.H - 11, -1, -1);
+let worst = 0;
+for (const m of ['safe', 'fast', 'power']) {
+  const t0 = Date.now(), p = SS.astar(GW, wS, wE, m), dt = Date.now() - t0; worst = Math.max(worst, dt);
+  assert(p && p.every(i => GW.cost[i] !== 255), 'wide ' + m + ' failed'); assert(SS.stats(GW, p).len > 40000, 'wide route too short');
+}
+assert(worst < 6000, 'wide A* too slow: ' + worst + ' ms'); ok(`wide 40 m grid corner-to-corner: 3 modes OK, slowest ${worst} ms`);
 console.log('all tests passed');
