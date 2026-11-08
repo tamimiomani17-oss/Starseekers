@@ -20,7 +20,7 @@
  "cost_bin": "uint8: 0..254 = risk*254, 255 = blocked or no DEM",
  "slope_bin": "uint8: slope clipped 0..45 deg -> 0..255 (20 m DEM; smoother than the 10 m zone)",
  "softness_bin": "uint8: 0..1 -> 0..255; value 0 where mask bit 2 is set (no thermal inertia) - NOT a real zero",
- "mask_bin": "uint8 bit flags: 1 = no DEM data, 2 = no thermal-inertia data (risk uses slope+roughness only there)",
+ "mask_bin": "NOT shipped (data/processed/mask_wide.bin); uint8 bit flags: 1 = no DEM data, 2 = no thermal-inertia data (risk uses slope+roughness only there)",
  "images": "hillshade.png (2x cells, top row = north), difficulty.png (1 px per cell, RGBA, grey = no DEM)",
  "corners_lonlat": {
   "SW": [

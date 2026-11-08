@@ -57,7 +57,7 @@ def main():
     south_up(cost).tofile(OUT / "cost.bin")
     south_up(np.round(np.clip(slope, 0, 45) / 45 * 255).astype(np.uint8)).tofile(OUT / "slope.bin")
     south_up(np.round(np.clip(soft, 0, 1) * 255).astype(np.uint8)).tofile(OUT / "softness.bin")
-    south_up(mask.astype(np.uint8)).tofile(OUT / "mask.bin")
+    south_up(mask.astype(np.uint8)).tofile(PROC / "mask_wide.bin")  # not shipped to web (no-data is already in cost.bin 255 + difficulty.png)
     Image.fromarray(hs, "L").save(OUT / "hillshade.png", optimize=True)
     Image.fromarray(difficulty_rgba(risk, blocked, mask), "RGBA").save(OUT / "difficulty.png", optimize=True)
 
@@ -104,7 +104,7 @@ def main():
             "cost_bin": "uint8: 0..254 = risk*254, 255 = blocked or no DEM",
             "slope_bin": "uint8: slope clipped 0..45 deg -> 0..255 (20 m DEM; smoother than the 10 m zone)",
             "softness_bin": "uint8: 0..1 -> 0..255; value 0 where mask bit 2 is set (no thermal inertia) - NOT a real zero",
-            "mask_bin": "uint8 bit flags: 1 = no DEM data, 2 = no thermal-inertia data (risk uses slope+roughness only there)",
+            "mask_bin": "NOT shipped (data/processed/mask_wide.bin); uint8 bit flags: 1 = no DEM data, 2 = no thermal-inertia data (risk uses slope+roughness only there)",
             "images": "hillshade.png (2x cells, top row = north), difficulty.png (1 px per cell, RGBA, grey = no DEM)",
             "corners_lonlat": ww["corners_lonlat"], "source": ww["source"], "dem_valid_fraction": ww["dem_valid_fraction"],
             "mask_fractions": {"no_dem": round(float(((mask & 1) > 0).mean()), 4), "no_ti": round(float(((mask & 2) > 0).mean()), 4)},

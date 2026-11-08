@@ -7,3 +7,6 @@
 | CLAUDE_CODE_COMMANDS.md | old command cheat-sheet | `git mv _archive/2026-11-08/CLAUDE_CODE_COMMANDS.md .` |
 | CLAUDE_CODE_2_PROMPTS.md | old prompts copy (real ones are in `prompts/`) | `git mv _archive/2026-11-08/CLAUDE_CODE_2_PROMPTS.md .` |
 Also: local paths/email in these files replaced by `<PROJECT_ROOT>` / `<your-email>`; `design/` WhatsApp image renamed to `concept_canva_2026-11-06.jpeg`.
+| web/data/wide/mask.bin | not read by the web app (no-data already encoded in wide/cost.bin = 255 and wide/difficulty.png); now written to data/processed/mask_wide.bin by `12_export_wide.py` | `git mv _archive/2026-11-08/web/data/wide/mask.bin web/data/wide/` |
+Kept on purpose: `web/data/traverse.json` (not loaded by the web app any more, but read by `python/06_validate.py`).
+Deleted (allowed exception): auto-generated `__pycache__`.

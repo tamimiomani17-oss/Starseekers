@@ -4,3 +4,10 @@ data/processed/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 __pycache__/
+*.pyc
+*.tmp
+# local-only big/processed files (any file > 10 MB must stay out of git)
+*.tif
+*.tiff
+*.npz
+*.zip
